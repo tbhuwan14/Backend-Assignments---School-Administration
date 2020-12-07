@@ -58,7 +58,7 @@ app.put("/api/student/:id", (req, res) => {
   if (result.error) return res.status(400).send("Invalid input");
 
   student.name = req.body.name;
-  student.currentClass = req.body.currentClass;
+  student.currentClass = parseInt(req.body.currentClass);
   student.division = req.body.division;
   res.send(student);
 });
