@@ -44,7 +44,7 @@ app.post("/api/student", (req, res) => {
 });
 
 app.put("/api/student/:id", (req, res) => {
-  const student = studentsData.find((c) => c.id === parseInt(req.params.id));
+  const student = studentsData.find((c) => c.id == parseInt(req.params.id));
   if (!student) return res.status(400).send("Invalid Id");
 
   const schema = Joi.object().keys({
