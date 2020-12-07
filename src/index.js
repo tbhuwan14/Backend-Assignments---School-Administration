@@ -47,19 +47,24 @@ app.put("/api/student/:id", (req, res) => {
   const student = studentsData.find((c) => c.id == parseInt(req.params.id));
   if (!student) return res.status(400).send("Invalid Id");
 
-  const schema = Joi.object().keys({
-    name: Joi.string().min(1).required(),
-    currentClass: Joi.required(),
-    division: Joi.string().max(1).required(),
-  });
+  //   const schema = Joi.object().keys({
+  //     name: Joi.string().min(1).required(),
+  //     currentClass: Joi.required(),
+  //     division: Joi.string().max(1).required(),
+  //   });
 
-  const result = schema.validate(req.body);
-  console.log(result);
-  if (result.error) return res.status(400).send("Invalid input");
+  //   const result = schema.validate(req.body);
+  //   console.log(result);
+  //   if (result.error) return res.status(400).send("Invalid input");
 
-  student.name = req.body.name;
-  student.currentClass = parseInt(req.body.currentClass);
-  student.division = req.body.division;
+  const index = studentsData.indexOf(student);
+  student.name = req.body.name ? req.body.name : studentsData[index].name;
+  student.currentClass = req.body.currentClass
+    ? parseInt(req.body.currentClass)
+    : studentsData[index].currentClass;
+  student.division = req.body.division
+    ? req.body.division
+    : studentsData[index].division;
   res.send(student);
 });
 
